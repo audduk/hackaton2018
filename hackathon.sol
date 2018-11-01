@@ -63,6 +63,10 @@ contract FileTrasfer {
         return p1 + p2;
     }
 
+    function ping2(bytes32 val) public pure returns (bytes32) {
+        return val;
+    }
+
     function getResponse(bytes32 encryptedHash) public view returns (bytes32, address, bytes32) {
         require(transfers[encryptedHash].received);
         TransferInfo memory info = transfers[encryptedHash];
