@@ -1,0 +1,80 @@
+[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "p1",
+        "type": "uint256"
+      },
+      {
+        "name": "p2",
+        "type": "uint256"
+      }
+    ],
+    "name": "ping",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "encryptedHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "approveReceiving",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerFile",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "encryptedHash",
+        "type": "bytes32"
+      },
+      {
+        "name": "password",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerResponse",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
