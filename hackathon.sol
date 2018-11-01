@@ -2,6 +2,7 @@ pragma solidity ^0.4.0;
 contract FileTrasfer {
 
     struct FileInfo {
+        bool exists;
         address sender;
         uint256 sendTime;
     }
@@ -12,14 +13,17 @@ contract FileTrasfer {
 
     /// Фиксация факта отправки файла
     function registerFile(bytes32 hash) public {
-        FileInfo storage info = files[hash];
-        //if (files[hash]) return;
+        require(!files[hash].exists);
+        FileInfo memory info = files[hash];
+        info.exists = true;
         info.sender = msg.sender;
         info.sendTime = now;
         files[hash] = info;
     }
 
     struct TransferInfo {
+        bool registered;
+        bool received;
         bytes32 hash;
         bytes32 encryptedHash;
         bytes32 password;
@@ -34,7 +38,10 @@ contract FileTrasfer {
     /// Файл (зашифрованный) передан получателю
     /// Вызывает отправитель файла после факта отправки
     function registerResponse(bytes32 hash, bytes32 encryptedHash, bytes32 password) public {
-        TransferInfo storage info = transfers[encryptedHash];
+        require(files[hash].exists);
+        require(!transfers[encryptedHash].registered);
+        TransferInfo memory info = transfers[encryptedHash];
+        info.registered = true;
         info.hash = hash;
         info.encryptedHash = encryptedHash;
         info.password = password;
@@ -45,10 +52,13 @@ contract FileTrasfer {
     /// Запрос пароля, выданного для заданного зашифрованного файла
     /// Вызывает получатель файла после расчета хеша полученного зашифрованного файла
     function approveReceiving(bytes32 encryptedHash) public returns (bytes32) {
-        //if (!transfers[encryptedHash]) return 0x0;
-        TransferInfo storage info = transfers[encryptedHash];
+        require(transfers[encryptedHash].registered);
+        require(!transfers[encryptedHash].received);
+        TransferInfo memory info = transfers[encryptedHash];
+        info.received = true;
         info.receiver = msg.sender;
         info.receiveTime = now;
+        transfers[encryptedHash] = info;
         return info.password;
     }
 
@@ -57,8 +67,8 @@ contract FileTrasfer {
     }
 
     function getResponse(bytes32 encryptedHash) public view returns (bytes32, address, bytes32) {
-        //if (transfers[encryptedHash].receiver != msg.sender) return (0x0, 0x0, 0x0);
-        TransferInfo storage info = transfers[encryptedHash];
+        require(transfers[encryptedHash].received);
+        TransferInfo memory info = transfers[encryptedHash];
         return (info.hash, info.receiver, info.password);
     }
 }
