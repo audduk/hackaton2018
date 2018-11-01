@@ -1,10 +1,9 @@
 package ru.sbrf.hackaton.fraudbusters.utils;
 
-import java.time.Instant;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class PasswordGenerator {
   public static String generatePassword(){
-    Integer i = Instant.now().getNano() % 319;
-    return i.toString();
+    return RandomStringUtils.random(32, true, true);
   }
 }
