@@ -55,4 +55,10 @@ contract FileTrasfer {
     function ping(uint p1, uint p2) public pure returns (uint) {
         return p1 + p2;
     }
+
+    function getResponse(bytes32 encryptedHash) public view returns (bytes32, address, bytes32) {
+        //if (transfers[encryptedHash].receiver != msg.sender) return (0x0, 0x0, 0x0);
+        TransferInfo storage info = transfers[encryptedHash];
+        return (info.hash, info.receiver, info.password);
+    }
 }

@@ -1,28 +1,5 @@
 [
   {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "p1",
-        "type": "uint256"
-      },
-      {
-        "name": "p2",
-        "type": "uint256"
-      }
-    ],
-    "name": "ping",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "pure",
-    "type": "function"
-  },
-  {
     "constant": false,
     "inputs": [
       {
@@ -75,6 +52,56 @@
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "encryptedHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getResponse",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "p1",
+        "type": "uint256"
+      },
+      {
+        "name": "p2",
+        "type": "uint256"
+      }
+    ],
+    "name": "ping",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
     "type": "function"
   }
 ]
