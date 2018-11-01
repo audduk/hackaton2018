@@ -24,12 +24,13 @@
         </form>
       </div>
       <div class="col">
-        <form method="get" action="api/file/get">
+        <form method="get">
           <div class="form-group">
             <input type="text" class="form-control" id="uri" name="uri">
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary">Получить</button>
+            <button type="submit" formaction="api/file/get" class="btn btn-primary">Получить файл</button>
+            <button type="submit" formaction="api/file/pass" class="btn btn-primary">Получить пароль</button>
           </div>
         </form>
       </div>
