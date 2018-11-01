@@ -15,42 +15,35 @@ public class ZipUtils {/**
  *            Password for zip file
  * @return true if files are zipped successfully, else false.
  */
-  public static boolean zipFiles(String zipFileName, File file,
-                                 char[] password) {
+  public static File zipFiles(String zipFileName, File file,
+                              char[] password) throws ZipException {
+   /* Instantiate ZipFile */
+    ZipFile zipFile = new ZipFile(zipFileName);
 
-    try {
-     /* Instantiate ZipFile */
-      ZipFile zipFile = new ZipFile(zipFileName);
+   /* Instantiate ZipParameters */
+    ZipParameters zipParameters = new ZipParameters();
 
-     /* Instantiate ZipParameters */
-      ZipParameters zipParameters = new ZipParameters();
+   /* Set compression type */
+    zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
 
-     /* Set compression type */
-      zipParameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+   /* Set Compression level */
+    zipParameters
+        .setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
 
-     /* Set Compression level */
-      zipParameters
-          .setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
+   /* Set encryptFiles to true */
+    zipParameters.setEncryptFiles(true);
 
-     /* Set encryptFiles to true */
-      zipParameters.setEncryptFiles(true);
+   /* Select the Encryption method to encrypt fies */
+    zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
 
-     /* Select the Encryption method to encrypt fies */
-      zipParameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
+   /* Set AES key length */
+    zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
 
-     /* Set AES key length */
-      zipParameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
+   /* Set the password for zip file */
+    zipParameters.setPassword(password);
 
-     /* Set the password for zip file */
-      zipParameters.setPassword(password);
+    zipFile.addFile(file, zipParameters);
 
-      zipFile.addFile(file, zipParameters);
-
-    } catch (ZipException e) {
-      e.printStackTrace();
-      return false;
-    }
-
-    return true;
+    return zipFile.getFile();
   }
 }
