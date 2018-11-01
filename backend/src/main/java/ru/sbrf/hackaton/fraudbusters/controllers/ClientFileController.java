@@ -1,5 +1,6 @@
 package ru.sbrf.hackaton.fraudbusters.controllers;
 
+import net.lingala.zip4j.exception.ZipException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +32,8 @@ public class ClientFileController {
   }
 
   @GetMapping(value = "/get/{uri}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-  public String getFile(@PathVariable("uri") String uri, HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
-    return fileManager.getFile(uri, response.getOutputStream());
+  public void getFile(@PathVariable("uri") String uri, HttpServletResponse response) throws IOException, NoSuchAlgorithmException, ZipException {
+    fileManager.getFile(uri, response.getOutputStream());
   }
 
   @GetMapping(value = "/pass", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
