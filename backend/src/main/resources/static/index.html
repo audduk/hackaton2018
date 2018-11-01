@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SberFileTransfer</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="fraudBusters">
+  <link rel="stylesheet" type="" href="css/style.css">
+  <link rel="stylesheet" type="" href="css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <form method="post" action="api/file/send" enctype="multipart/form-data" target="_blank">
+          <div class="form-group">
+            <input type="file" class="form-control-file" id="file" name="file">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Отправить</button>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <form method="get" action="api/file/get">
+          <div class="form-group">
+            <input type="text" class="form-control" id="uri" name="uri">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Получить</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
