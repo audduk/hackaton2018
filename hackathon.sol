@@ -14,7 +14,7 @@ contract FileTrasfer {
     /// Фиксация факта отправки файла
     function registerFile(bytes32 hash) public {
         require(!files[hash].exists);
-        FileInfo memory info = files[hash];
+        FileInfo storage info = files[hash];
         info.exists = true;
         info.sender = msg.sender;
         info.sendTime = now;
@@ -40,7 +40,7 @@ contract FileTrasfer {
     function registerResponse(bytes32 hash, bytes32 encryptedHash, bytes32 password) public {
         require(files[hash].exists);
         require(!transfers[encryptedHash].registered);
-        TransferInfo memory info = transfers[encryptedHash];
+        TransferInfo storage info = transfers[encryptedHash];
         info.registered = true;
         info.hash = hash;
         info.encryptedHash = encryptedHash;
@@ -54,7 +54,7 @@ contract FileTrasfer {
     function approveReceiving(bytes32 encryptedHash) public returns (bytes32) {
         require(transfers[encryptedHash].registered);
         require(!transfers[encryptedHash].received);
-        TransferInfo memory info = transfers[encryptedHash];
+        TransferInfo storage info = transfers[encryptedHash];
         info.received = true;
         info.receiver = msg.sender;
         info.receiveTime = now;
@@ -68,7 +68,7 @@ contract FileTrasfer {
 
     function getResponse(bytes32 encryptedHash) public view returns (bytes32, address, bytes32) {
         require(transfers[encryptedHash].received);
-        TransferInfo memory info = transfers[encryptedHash];
+        TransferInfo storage info = transfers[encryptedHash];
         return (info.hash, info.receiver, info.password);
     }
 }
