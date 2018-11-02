@@ -69,6 +69,17 @@ public class ClientContractImpl implements ClientContract {
     }
 
     @Override
+    public String findRepository(byte[] hash) throws Exception {
+        byte[] data = contract.findRepository(getFixedByteArray(hash)).send();
+        return new String(trim(data));
+    }
+
+    @Override
+    public void registerRepo(byte[] repository) throws Exception {
+        contract.registerRepo(getFixedByteArray(repository)).send();
+    }
+
+    @Override
     public String getResponse(byte[] encryptedHash) throws Exception {
         Tuple3<byte[], String, byte[]> response = contract.getResponse(getFixedByteArray(encryptedHash)).send();
         return new String(response.getValue3());
@@ -89,5 +100,16 @@ public class ClientContractImpl implements ClientContract {
 
     private byte[] getFixedByteArray(byte[] data) {
         return Arrays.copyOf(data, 32);
+    }
+
+    private byte[] trim(byte[] data) {
+        for(int i = 0; i < data.length; ++i) {
+            if (data[i] == 0) {
+                byte[] result = new byte[32];
+                System.arraycopy(data, 0, result, 0, i);
+                return result;
+            }
+        }
+        return data;
     }
 }
