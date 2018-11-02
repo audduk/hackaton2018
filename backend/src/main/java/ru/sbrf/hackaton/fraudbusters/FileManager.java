@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.sbrf.hackaton.fraudbusters.api.ClientContract;
 
 import java.io.*;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,14 +26,12 @@ public class FileManager {
   }
 
   public String sendFile(String fileName, InputStream inputStream) throws Exception {
-    MessageDigest digest = MessageDigest.getInstance("SHA-256");
     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     IOUtils.copy(inputStream, byteArrayOutputStream);
     byte[] arByte = byteArrayOutputStream.toByteArray();
-    String resourcePath = FileManager.class.getClassLoader().getResource("").getPath();
+    URI uri = FileManager.class.getClassLoader().getResource("").toURI();
     String hashedFileName = String.valueOf(System.currentTimeMillis());
-    Path path = Paths.get(resourcePath, hashedFileName);
-    Files.copy(inputStream, path);
+    Path path = Paths.get(uri.resolve(hashedFileName));
     Files.write(path, arByte);
     clientContract.registerFile(hashedFileName.getBytes());
     return hashedFileName;
@@ -40,8 +39,8 @@ public class FileManager {
 
   public void getFile(String uri, OutputStream out) throws Exception {
     String pass = generatePassword();
-    String path = FileManager.class.getClassLoader().getResource("").getPath();
-    File zip = zipFiles(path + uri + ".zip", Paths.get(path, uri).toFile(), pass.toCharArray());
+    Path path = Paths.get(FileManager.class.getClassLoader().getResource("").toURI().resolve(uri));
+    File zip = zipFiles(path + uri + ".zip", path.toFile(), pass.toCharArray());
     MessageDigest digest = MessageDigest.getInstance("SHA-256");
     byte[] arByte = Files.readAllBytes(zip.toPath());
     byte[] encodedhash = digest.digest(arByte);
