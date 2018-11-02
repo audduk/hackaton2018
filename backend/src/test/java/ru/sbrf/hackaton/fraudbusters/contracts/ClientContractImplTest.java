@@ -13,7 +13,7 @@ public class ClientContractImplTest {
   private static ClientContractImpl clientContractImpl;
   private static final String HOST = "http://174.138.14.158:7001/";
   private static final String WALLET_PATH = "/home/bot/blockchain/keystore/UTC_2018_11_01T12_30_17_502905348Z";
-  private static final String CONTRACT = "0x101e07572d05e29d6c2c396bf6f1611d11029714";
+  private static final String CONTRACT = "0x57921e31ccb1a8c3d638766854e2c1a5e228a337";
 
   @BeforeClass
   public static void setUp() throws Exception {

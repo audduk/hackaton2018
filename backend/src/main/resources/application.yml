@@ -5,4 +5,5 @@ server:
 ethereum:
   host: http://174.138.14.158:7001/
   wallet_path: /home/bot/blockchain/keystore/UTC_2018_11_01T12_30_17_502905348Z
-  contract: "0x101e07572d05e29d6c2c396bf6f1611d11029714"
+  contract: "0x57921e31ccb1a8c3d638766854e2c1a5e228a337"
+  repository: "http://localhost:9000"

@@ -1,13 +1,17 @@
 package ru.sbrf.hackaton.fraudbusters.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.sbrf.hackaton.fraudbusters.FileManager;
 import ru.sbrf.hackaton.fraudbusters.exceptions.CustomGenericException;
 
 import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/api/file")
@@ -29,9 +33,17 @@ public class ClientFileController {
   }
 
   @GetMapping(value = "/get", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-  public void getFile(@RequestParam("uri") String uri, HttpServletResponse response) throws Exception {
+  public ResponseEntity getFile(@RequestParam("uri") String uri, HttpServletResponse response) throws Exception {
     if(uri.isEmpty())
       throw new CustomGenericException("Хэш файла не указан.");
+    String repository = fileManager.getRepository(uri);
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.setLocation(URI.create(repository + "/api/file/get-file?uri=" + uri));
+    return new ResponseEntity<>(httpHeaders, HttpStatus.MOVED_PERMANENTLY);
+  }
+
+  @GetMapping(value = "/get-file", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+  public void getLocalFile(@RequestParam("uri") String uri, HttpServletResponse response) throws Exception {
     fileManager.getFile(uri, response.getOutputStream());
   }
 

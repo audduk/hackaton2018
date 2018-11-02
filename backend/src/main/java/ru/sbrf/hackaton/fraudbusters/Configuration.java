@@ -12,7 +12,10 @@ public class Configuration {
   public ClientContract clientContract(
       @Value("${ethereum.host}") String host,
       @Value("${ethereum.wallet_path}") String walletPath,
-      @Value("${ethereum.contract}") String contract) throws Exception {
-    return ClientContractImpl.create(host, walletPath, contract);
+      @Value("${ethereum.contract}") String contract,
+      @Value("${ethereum.repository}") String repository) throws Exception {
+    ClientContract clientContract = ClientContractImpl.create(host, walletPath, contract);
+    clientContract.registerRepo(repository.getBytes());
+    return clientContract;
   }
 }

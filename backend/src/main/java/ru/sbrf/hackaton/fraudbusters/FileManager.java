@@ -61,4 +61,8 @@ public class FileManager {
   public Boolean validation(String sha, String shaZip, String pass) {
     return true;
   }
+
+  public String getRepository(String hash) throws Exception {
+    return clientContract.findRepository(hash.getBytes());
+  }
 }
