@@ -1,25 +1,85 @@
 [
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "encryptedHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "approveReceiving",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerFile",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "repository",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerRepo",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "hash",
+        "type": "bytes32"
+      },
+      {
+        "name": "encryptedHash",
+        "type": "bytes32"
+      },
+      {
+        "name": "password",
+        "type": "bytes32"
+      }
+    ],
+    "name": "registerResponse",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [
       {
-        "name": "p1",
-        "type": "uint256"
-      },
-      {
-        "name": "p2",
-        "type": "uint256"
+        "name": "hash",
+        "type": "bytes32"
       }
     ],
-    "name": "ping",
+    "name": "findRepository",
     "outputs": [
       {
         "name": "",
-        "type": "uint256"
+        "type": "bytes32"
       }
     ],
     "payable": false,
-    "stateMutability": "pure",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -50,17 +110,26 @@
     "type": "function"
   },
   {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
-        "name": "encryptedHash",
-        "type": "bytes32"
+        "name": "p1",
+        "type": "uint256"
+      },
+      {
+        "name": "p2",
+        "type": "uint256"
       }
     ],
-    "name": "approveReceiving",
-    "outputs": [],
+    "name": "ping",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -80,42 +149,6 @@
     ],
     "payable": false,
     "stateMutability": "pure",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "hash",
-        "type": "bytes32"
-      }
-    ],
-    "name": "registerFile",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "hash",
-        "type": "bytes32"
-      },
-      {
-        "name": "encryptedHash",
-        "type": "bytes32"
-      },
-      {
-        "name": "password",
-        "type": "bytes32"
-      }
-    ],
-    "name": "registerResponse",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

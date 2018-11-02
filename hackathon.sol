@@ -1,6 +1,19 @@
 pragma solidity ^0.4.0;
 contract FileTrasfer {
 
+    // Список хранилищ файлов
+    mapping(address => bytes32) repositories;
+
+    //Регистриует репозиторий для файлов
+    function registerRepo(bytes32 repository) public {
+        repositories[msg.sender] = repository;
+    }
+
+    //Получить адрес хранилища для файла
+    function findRepository(bytes32 hash) public view returns (bytes32) {
+        return repositories[files[hash].sender];
+    }
+
     struct FileInfo {
         bool exists;
         address sender;
